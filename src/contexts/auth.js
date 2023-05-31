@@ -6,14 +6,15 @@ function AuthProvider(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async function () {
+    async function fetchUser() {
       const result = await getUser();
       if (result.isOk) {
         setUser(result.data);
       }
-
       setLoading(false);
-    })();
+    }
+
+    fetchUser();
   }, []);
 
   const signIn = useCallback(async (email, password) => {
@@ -38,4 +39,3 @@ const AuthContext = createContext({ loading: false });
 const useAuth = () => useContext(AuthContext);
 
 export { AuthProvider, useAuth };
-
